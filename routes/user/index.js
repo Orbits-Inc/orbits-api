@@ -4,7 +4,7 @@ const updateContext = require("./update/index");
 const deleteContext = require("./delete/index");
 
 router.route("/:id").get((req, res) => {
-  User.findOne({user_id:req.params.id})
+  User.findOne({ user_id: req.params.id })
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json({ error: err }));
 });
@@ -12,7 +12,7 @@ router.route("/:id").get((req, res) => {
 router.route("/").post((req, res) => {
   data = req.body;
   const newUser = new User({
-    ...data
+    ...data,
   });
 
   newUser
@@ -27,12 +27,8 @@ router.route("/").post((req, res) => {
 });
 
 router.route("/update/info/:id").post((req, res) => {
-  console.log(req)
+  console.log(req);
   updateContext.info(req.params.id, req, res);
-});
-
-router.route("/update/followers/:id").post((req, res) => {
-  updateContext.followers(req.params.id, req, res);
 });
 
 router.route("/update/following/:id").post((req, res) => {
@@ -53,10 +49,6 @@ router.route("/delete/account/:id").delete((req, res) => {
 
 router.route("/delete/post/:id").delete((req, res) => {
   deleteContext.post(req.params.id, req, res);
-});
-
-router.route("/delete/followers/:id").delete((req, res) => {
-  deleteContext.followers(req.params.id, req, res);
 });
 
 router.route("/delete/following/:id").delete((req, res) => {
