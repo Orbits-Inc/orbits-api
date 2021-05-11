@@ -38,8 +38,8 @@ module.exports.likes = function likes(id, req, res) {
 module.exports.comments = function comments(id, req, res) {
   Post.findById(id)
     .then((post) => {
-      req.body.comment.comment_id = ObjectID();
-      post.comments.push(req.body.comment);
+      req.body.comment_id = ObjectID();
+      post.comments.push(req.body);
       post.save().then(() => {
         res.json({
           post: post,

@@ -34,7 +34,7 @@ module.exports.comments = function comments(id, req, res) {
     .then((post) => {
       newcomments = [];
       for (let i = 0; i < post.comments.length; i++) {
-        if (post.comments[i].comment_id.equals(ObjectID(req.body.comment_id))) {
+        if (String(post.comments[i].comment_id) === req.body.comment_id) {
           continue;
         } else {
           newcomments.push(post.comments[i]);
