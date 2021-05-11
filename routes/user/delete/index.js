@@ -1,4 +1,5 @@
 const User = require("../../../models/user.model");
+const ObjectID = require("bson-objectid");
 
 module.exports.account = function account(id, req, res) {
   User.findOneAndDelete({ user_id: id })
@@ -31,29 +32,29 @@ module.exports.following = function following(id, req, res) {
         this.followers(req.body.user_id, id, req, res);
         res.json({
           username: user.username,
-          deleted: true,
+          followingDeleted: true,
         });
       });
     })
     .catch((err) => {
-      res.status(400).json({ error: err, deleted: false });
+      res.status(400).json({ error: err, followingDeleted: false });
     });
 };
 
-module.exports.post = function post(id, req, res) {
+module.exports.post = function post(post_id, id, req, res) {
   User.findOne({ user_id: id })
     .then((user) => {
       user.posts = user.posts.filter((_id) => {
-        return _id !== req.body.post_id;
+        return !_id.equals(ObjectID(post_id));
       });
       user.save().then(() => {
-        res.json({
+        console.log({
           username: user.username,
-          deleted: true,
+          postDeleted: true,
         });
       });
     })
     .catch((err) => {
-      res.status(400).json({ error: err, deleted: false });
+      console.log({ error: err, postDeleted: false });
     });
 };

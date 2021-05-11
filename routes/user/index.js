@@ -2,11 +2,10 @@ const router = require("express").Router();
 const User = require("../../models/user.model");
 const updateContext = require("./update/index");
 const deleteContext = require("./delete/index");
+const getContext = require("./get/index");
 
 router.route("/:id").get((req, res) => {
-  User.findOne({ user_id: req.params.id })
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json({ error: err }));
+  getContext.get(req.params.id, req, res);
 });
 
 router.route("/").post((req, res) => {
@@ -27,7 +26,6 @@ router.route("/").post((req, res) => {
 });
 
 router.route("/update/info/:id").post((req, res) => {
-  console.log(req);
   updateContext.info(req.params.id, req, res);
 });
 
@@ -39,16 +37,8 @@ router.route("/update/notifications/:id").post((req, res) => {
   updateContext.notifications(req.params.id, req, res);
 });
 
-router.route("/update/post/:id").post((req, res) => {
-  updateContext.post(req.params.id, req, res);
-});
-
 router.route("/delete/account/:id").delete((req, res) => {
   deleteContext.account(req.params.id, req, res);
-});
-
-router.route("/delete/post/:id").delete((req, res) => {
-  deleteContext.post(req.params.id, req, res);
 });
 
 router.route("/delete/following/:id").delete((req, res) => {

@@ -1,4 +1,5 @@
 const User = require("../../../models/user.model");
+const ObjectID = require("bson-objectid");
 
 module.exports.info = function info(id, req, res) {
   User.findOne({ user_id: id })
@@ -40,12 +41,12 @@ module.exports.following = function following(id, req, res) {
         this.followers(req.body.user_id, id, req, res);
         res.json({
           username: user.username,
-          updated: true,
+          followingAdded: true,
         });
       });
     })
     .catch((err) => {
-      res.status(400).json({ error: err, updated: false });
+      res.status(400).json({ error: err, followingAdded: false });
     });
 };
 
@@ -56,27 +57,27 @@ module.exports.notifications = function notifications(id, req, res) {
       user.save().then(() => {
         res.json({
           username: user.username,
-          updated: true,
+          notificationSent: true,
         });
       });
     })
     .catch((err) => {
-      res.status(400).json({ error: err, updated: false });
+      res.status(400).json({ error: err, notificationSent: false });
     });
 };
 
-module.exports.post = function post(id, req, res) {
+module.exports.post = function post(post_id, id, req, res) {
   User.findOne({ user_id: id })
     .then((user) => {
-      user.posts.push(req.body.post_id);
+      user.posts.push(post_id);
       user.save().then(() => {
-        res.json({
+        console.log({
           username: user.username,
-          updated: true,
+          postAdded: true,
         });
       });
     })
     .catch((err) => {
-      res.status(400).json({ error: err, updated: false });
+      console.log({ error: err, postAdded: false });
     });
 };

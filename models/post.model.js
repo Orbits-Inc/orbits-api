@@ -1,15 +1,9 @@
 const mongoose = require("mongoose");
-const { userSchema } = require("./user.model");
 
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema(
   {
-    post_id: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     title: {
       type: String,
       required: true,
@@ -40,8 +34,9 @@ const postSchema = new Schema(
     comments: {
       type: Array,
     },
-    author: {
-      type: userSchema,
+    author_id: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -49,6 +44,6 @@ const postSchema = new Schema(
   }
 );
 
-const Post = mongoose.model("User", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 module.exports = Post;
