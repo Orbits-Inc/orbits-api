@@ -27,7 +27,7 @@ router.route("/").get((req, res) => {
   getContext.getAll(req, res);
 });
 
-router.route("/top_posts").get((req, res) => {
+router.route("/topPosts").get((req, res) => {
   getContext.topPosts(req, res);
 });
 
