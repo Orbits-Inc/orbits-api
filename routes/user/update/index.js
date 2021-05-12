@@ -53,7 +53,8 @@ module.exports.following = function following(id, req, res) {
 module.exports.notifications = function notifications(id, req, res) {
   User.findOne({ user_id: id })
     .then((user) => {
-      user.notifications.push(req.body.notification);
+      user.notifications.push(req.body);
+      user.ping = true;
       user.save().then(() => {
         res.json({
           username: user.username,

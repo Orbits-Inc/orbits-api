@@ -4,8 +4,16 @@ const updateContext = require("./update/index");
 const deleteContext = require("./delete/index");
 const getContext = require("./get/index");
 
-router.route("/:id").get((req, res) => {
+router.route("/byId/:id").get((req, res) => {
   getContext.get(req.params.id, req, res);
+});
+
+router.route("/search/:query").get((req, res) => {
+  getContext.search(req.params.query, req, res);
+});
+
+router.route("/").get((req, res) => {
+  getContext.getAll(req, res);
 });
 
 router.route("/").post((req, res) => {
@@ -43,6 +51,10 @@ router.route("/delete/account/:id").delete((req, res) => {
 
 router.route("/delete/following/:id").delete((req, res) => {
   deleteContext.following(req.params.id, req, res);
+});
+
+router.route("/delete/ping/:id").delete((req, res) => {
+  deleteContext.ping(req.params.id, req, res);
 });
 
 module.exports = router;

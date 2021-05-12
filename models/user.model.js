@@ -36,6 +36,9 @@ userSchema = new Schema(
     notifications: {
       type: Array,
     },
+    ping: {
+      type: Boolean,
+    },
     email: {
       type: String,
       required: true,

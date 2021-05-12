@@ -58,3 +58,19 @@ module.exports.post = function post(post_id, id, req, res) {
       console.log({ error: err, postDeleted: false });
     });
 };
+
+module.exports.ping = function ping(id, req, res) {
+  User.findOne({ user_id: id })
+    .then((user) => {
+      user.ping = false;
+      user.save().then(() => {
+        res.json({
+          username: user.username,
+          pingDeleted: true,
+        });
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({ error: err, pingDeleted: false });
+    });
+};

@@ -3,15 +3,52 @@ const Post = require("../../models/post.model");
 const userUpdateContext = require("../user/update/index");
 const updateContext = require("./update/index");
 const deleteContext = require("./delete/index");
+const getContext = require("./get/index");
+const monthArray = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
-router.route("/:id").get((req, res) => {
-  Post.findById(req.params.id)
-    .then((post) => res.json(post))
-    .catch((err) => res.status(400).json({ error: err }));
+router.route("/byId/:id").get((req, res) => {
+  getContext.get(req.params.id, req, res);
+});
+
+router.route("/").get((req, res) => {
+  getContext.getAll(req, res);
+});
+
+router.route("/top_posts").get((req, res) => {
+  getContext.topPosts(req, res);
+});
+
+router.route("/search/:query").get((req, res) => {
+  getContext.search(req.params.query, req, res);
+});
+
+router.route("/searchByTag/:query").get((req, res) => {
+  getContext.searchByTag(req.params.query, req, res);
 });
 
 router.route("/").post(async (req, res) => {
   data = req.body;
+  date = new Date();
+  dateStr =
+    date.getDate() +
+    " " +
+    monthArray[date.getMonth()] +
+    " " +
+    date.getFullYear();
+  data.date = dateStr;
   data.read_time = Math.ceil(data.content.length / 200);
   const newPost = new Post({
     ...data,
@@ -41,7 +78,7 @@ router.route("/update/comments/:id").post((req, res) => {
   updateContext.comments(req.params.id, req, res);
 });
 
-router.route("/delete/post/:id").delete((req, res) => {
+router.route("/delete/:id").delete((req, res) => {
   deleteContext.post(req.params.id, req, res);
 });
 
