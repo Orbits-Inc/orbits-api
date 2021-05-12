@@ -31,3 +31,13 @@ module.exports.search = async function search(query, req, res) {
   }
   res.json(users);
 };
+
+module.exports.getByUsername = function getByUsername(username, req, res) {
+  User.findOne({ username: username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(400).json({ error: err });
+    });
+};

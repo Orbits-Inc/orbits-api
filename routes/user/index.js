@@ -8,6 +8,10 @@ router.route("/byId/:id").get((req, res) => {
   getContext.get(req.params.id, req, res);
 });
 
+router.route("/byUsername/:username").get((req, res) => {
+  getContext.getByUsername(req.params.username, req, res);
+});
+
 router.route("/search/:query").get((req, res) => {
   getContext.search(req.params.query, req, res);
 });
