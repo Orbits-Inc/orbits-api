@@ -13,6 +13,7 @@
   "author": "imsaptarshi",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "bson": "^4.3.0",
     "bson-objectid": "^2.0.1",
     "cors": "^2.8.5",
