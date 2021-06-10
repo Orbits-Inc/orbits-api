@@ -1,0 +1,28 @@
+{
+  "name": "orbits-api",
+  "version": "1.0.1",
+  "description": "Orbit's Official API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilpabale/orbits-api.git"
+  },
+  "author": "Sahil Pabale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahilpabale/orbits-api/issues"
+  },
+  "homepage": "https://github.com/sahilpabale/orbits-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
