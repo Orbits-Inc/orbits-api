@@ -9,4 +9,6 @@ router.get("/", (req, res) => {
     });
 });
 
+// User API Routes
+
 module.exports = router;
